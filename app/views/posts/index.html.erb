@@ -1,0 +1,57 @@
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Business. Politics. Culture.</span></h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Main call to action</a>
+          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+        </p>
+      </div>
+    </div>
+  </section>
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="col">
+      <h3>Politics</h3>
+      <% @posts.each do |posts| %>
+      <a href="<%= posts[:link] %>"><p><strong><%= posts[:title] %></strong></p></a>
+      <p><span class="badge bg-warning">Politics</span></p>
+      <small><p style="margin-top:-10px"> | <a href="<%= posts[:link].html_safe %>"><em>Source: Marijuana Moment</em></a></p></small>
+      <p><%= posts[:description].html_safe %></p>
+       <% end %>
+    </div>
+     
+    <div class="col">
+      <h3>Business</h3>
+      <% @news.each do |article| %>
+      <a href="<%= article[:link] %>"><p><strong><%= article[:title] %></strong></p></a>
+      <p><span class="badge bg-danger">Business</span></p>
+      <small><p style="margin-top:-10px"> | <a href="<%= article[:link].html_safe %>"><em>Source: MJBiz</em></a></p></small>
+      <p><%= article[:description].html_safe %></p>
+       <% end %>
+    </div>
+
+    <div class="col">
+      <h3>Culture</h3>
+      <% @culture.each do |article| %>
+      <a href="<%= article[:link] %>"><p><strong><%= article[:title] %></strong></p></a>
+      <p><span class="badge bg-primary">Culture</span></p>
+      <small><p style="margin-top:-10px"> | <a href="<%= article[:link].html_safe %>"><em>Source: High Times</em></a></p></small>
+      <p><%= article[:description].html_safe %></p>
+       <% end %>
+    </div>
+     
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
