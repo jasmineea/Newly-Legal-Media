@@ -3,43 +3,33 @@ class PostsController < ApplicationController
   require 'rss'
   require 'open-uri'
 
-  # GET /posts or /posts.json
+
   def index
     rss_results = []
     rss = RSS::Parser.parse(open('http://feeds.feedburner.com/mjbizdaily/XdPJ').read, false).items[0..5]
+    culture_rss = RSS::Parser.parse(open('http://feeds.feedburner.com/hightimes/cvxv').read, false).items[0..5]
+    pol_rss = RSS::Parser.parse(open('http://feeds.feedburner.com/marijuanamoment/Uffa').read, false).items[0..5]
+    
     
  rss.each do |result|
-      result = { title: result.title, date: result.pubDate, link: result.link, description: result.description }
+      result = { title: result.title, date: result.pubDate, link: result.link, description: result.description, category: result.category }
       rss_results.push(result)
     end
-      @news = rss_results
-
-      culture_results = []
-      culture_rss = RSS::Parser.parse(open('http://feeds.feedburner.com/hightimes/cvxv').read, false).items[0..5]
-
-      culture_rss.each do |result|
-        result = { title: result.title, date: result.pubDate, link: result.link, description: result.description }
-        culture_results.push(result)
+    culture_rss.each do |result|
+      result = { title: result.title, date: result.pubDate, link: result.link, description: result.description, category: result.category }
+      rss_results.push(result)
     end
-      @culture = culture_results
-
-   if params[:category].blank?
-     @posts = Post.all.order("created_at DESC")
-     pol_results = []
-     pol_rss = RSS::Parser.parse(open('http://feeds.feedburner.com/marijuanamoment/Uffa').read, false).items[0..5]
-     pol_rss.each do |result|
-      result = { title: result.title, date: result.pubDate, link: result.link, description: result.description }
-      pol_results.push(result)
+    pol_rss.each do |result|
+      result = { title: result.title, date: result.pubDate, link: result.link, description: result.description, category: result.category }
+      rss_results.push(result)
     end
-      @posts = pol_results
+      @posts = rss_results 
 
-  else
-    @category_id = Category.find_by(name: params[:category]).id
-    @posts = Post.where(category_id: @category_id).order("created_at DESC")
   end
 
-  
-  end
+
+
+
 
   # GET /posts/1 or /posts/1.json
   def show
